@@ -2,14 +2,14 @@ import requests
 import sys
 from colorama import Fore, Style, init
 
-# Renkleri otomatik sıfırla
-init(autoreset=True)
+# strip=False komutu, "Dosyaya yazıyor olsak bile RENKLERİ GÖSTER" demektir.
+init(autoreset=True, strip=False)
 
 class AuthAnalyzer:
     def __init__(self, target_url):
         self.target_url = target_url.strip()
         self.session = requests.Session()
-        # KILIK DEĞİŞTİRME: Kendimizi Chrome Tarayıcı gibi tanıtıyoruz
+        # Chrome maskesi
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         })
@@ -22,19 +22,16 @@ class AuthAnalyzer:
             
             if not cookies:
                 print(f"{Fore.YELLOW}[!] Hiç cookie bulunamadı.{Style.RESET_ALL}")
-                print(f"{Fore.WHITE}    İpucu: Farklı bir sayfa (Örn: ana sayfa) deneyin.{Style.RESET_ALL}")
                 return
 
             for cookie in cookies:
                 print(f"Cookie: {Fore.MAGENTA}{cookie.name}{Style.RESET_ALL}")
                 
-                # HttpOnly Kontrolü
                 if cookie.has_nonstandard_attr('HttpOnly') or 'HttpOnly' in cookie._rest:
                      print(f"{Fore.GREEN}  [+] HttpOnly: VAR (Güvenli){Style.RESET_ALL}")
                 else:
                      print(f"{Fore.RED}  [-] HttpOnly: YOK (XSS Riski!){Style.RESET_ALL}")
 
-                # Secure Kontrolü
                 if cookie.secure:
                     print(f"{Fore.GREEN}  [+] Secure: VAR (Güvenli){Style.RESET_ALL}")
                 else:
