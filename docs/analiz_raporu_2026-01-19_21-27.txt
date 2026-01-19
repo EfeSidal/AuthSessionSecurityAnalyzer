@@ -1,0 +1,14 @@
+----------------------------------------
+[*] Cookie Güvenliği Analiz Ediliyor...
+Cookie: __Secure-STRP
+  [-] HttpOnly: YOK (XSS Riski!)
+  [+] Secure: VAR (Güvenli)
+Cookie: AEC
+  [+] HttpOnly: VAR (Güvenli)
+  [+] Secure: VAR (Güvenli)
+Cookie: NID
+  [+] HttpOnly: VAR (Güvenli)
+  [+] Secure: VAR (Güvenli)
+Cookie: __Secure-BUCKET
+  [+] HttpOnly: VAR (Güvenli)
+  [+] Secure: VAR (Güvenli)
