@@ -1,0 +1,18 @@
+{
+  "projectName": "Auth Session Security Analyzer",
+  "category": "Web Security / Pentesting",
+  "author": "Efe Sidal",
+  "version": "1.0.0",
+  "description": "Web uygulamalarındaki oturum yönetimi mekanizmalarını (Cookie, Hijacking, IDOR) analiz eden otomatik güvenlik aracı.",
+  "features": [
+    "Session Hijacking & Fixation Test",
+    "Cookie Security Flags (HttpOnly, Secure, SameSite) Check",
+    "Privilege Escalation (IDOR) Detection",
+    "Session Timeout Analysis"
+  ],
+  "requirements": {
+    "os": "Linux (Ubuntu/Kali)",
+    "language": "Python 3.10+",
+    "dependencies": ["requests", "colorama", "beautifulsoup4"]
+  }
+}
