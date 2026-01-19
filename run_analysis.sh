@@ -4,20 +4,22 @@ echo "----------------------------------------"
 echo "Auth Session Security Analyzer Başlatılıyor"
 echo "----------------------------------------"
 
-# 1. Gerekli kütüphaneleri kontrol et
-if ! python3 -c "import colorama" &> /dev/null; then
-    echo "[!] Colorama eksik. Yükleniyor..."
-    pip install colorama requests
-fi
+# Rapor dosyasının adı (tarih ve saat ile)
+REPORT_FILE="docs/analiz_raporu_$(date +%F_%H-%M).txt"
 
-# 2. Kullanıcıdan input al
+# Kullanıcıdan URL al
 read -p "Analiz edilecek URL'yi girin: " target_url
 
-# 3. Python aracını çalıştır
-python3 src/main.py <<EOF
+# Python'u çalıştır, çıktıyı hem ekrana (tee) hem dosyaya yaz
+# Winpty komutu Git Bash'te python'un donmasını engeller
+echo "Hedef: $target_url"
+echo "----------------------------------------" | tee -a "$REPORT_FILE"
+
+# Python scriptini çalıştır ve input'u gönder
+python src/main.py <<EOF | tee -a "$REPORT_FILE"
 $target_url
 EOF
 
 echo "----------------------------------------"
-echo "Analiz Tamamlandı. Rapor 'docs/' klasörüne kaydedilebilir."
+echo "Analiz Tamamlandı! Rapor şuraya kaydedildi: $REPORT_FILE"
 echo "----------------------------------------"
